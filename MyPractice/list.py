@@ -1,6 +1,6 @@
-def display_skills(skills: list ) -> None:
+def display_skills(skills: list[str] ) -> None:
     for skill in skills:
-        print(f"Умею: {skill}") 
+        print(f"Умею: {skill.strip()}") 
 
 skills = ["Python", "SQL", "Git"]
 
@@ -10,7 +10,7 @@ display_skills(skills)
 skills.remove("Python")
 display_skills(skills)
 
-def upgrade_skills(skills: list) -> list:
+def upgrade_skills(skills: list[str]) -> list[str]:
     if "FastAPI" not in skills:
         skills.append("FastAPI")
     if "Docker" not in skills:
