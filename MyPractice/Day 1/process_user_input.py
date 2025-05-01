@@ -20,7 +20,7 @@ def process_user_input(data: dict) -> dict:
 
     # 4. Skills (список строк) — разбиваем по запятой и убираем пробелы
     new_skills = data.get("skills", "")
-    result["skills"] = [new_skills.strip() for skills in new_skills.split(",")]
+    result["skills"] = [skill.strip() for skill in new_skills.split(",")]
     # 5. Подписка — yes/no → bool
     subscribe = data.get("subscribe", "").lower()
     if subscribe == "yes":
