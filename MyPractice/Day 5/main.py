@@ -1,3 +1,3 @@
-from utils import is_even
+from tools.formatter import capitalize_words
 
-print(is_even(7))
+print(capitalize_words("привет папка мейн"))
