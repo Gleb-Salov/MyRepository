@@ -13,14 +13,6 @@ def read_root():
 def hello():
     return {"message": "Привет от FastAPI"}
 
-from fastapi import FastAPI, Path, Query, HTTPException
-
-app = FastAPI()
-
-from fastapi import FastAPI, Path, Query, HTTPException
-
-app = FastAPI()
-
 @app.get("/items/{item_id}")
 def read_item(
     item_id: int = Path(..., title="ID товара"),  # ID должен быть больше 0
