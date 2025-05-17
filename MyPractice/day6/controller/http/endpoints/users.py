@@ -1,23 +1,12 @@
 from typing import List
-import use_case
+from MyPractice.day6 import use_case
 
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
 
-from database import SessionLocal
-from schemas import UserCreate, UserRead, UserReadWithTasks, TaskCreate, TaskRead
+from MyPractice.day6.controller.http.depends.use_cases import get_user_crud, get_task_crud
+from MyPractice.day6.controller.http.schemas.schemas import UserCreate, UserRead, UserReadWithTasks, TaskCreate, TaskRead
 
 router = APIRouter()
-
-def get_user_crud(
-  session: Session = Depends(get_db),
-) -> use_case.UserCRUD:
-  return use_case.UserCRUD(session=session)
-
-def get_task_crud(
-  session: Session = Depends(get_db),
-) -> use_case.TaskCRUD:
-  return use_case.TaskCRUD(session=session)
 
 @router.post("/users/", response_model=UserRead)
 def create_user(user: UserCreate, user_crud: use_case.UserCRUD = Depends(get_user_crud)):

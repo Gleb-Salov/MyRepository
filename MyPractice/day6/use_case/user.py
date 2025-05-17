@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from models import User, Task
-from schemas import UserCreate, TaskCreate, TaskUpdate
+from MyPractice.day6.repository.sqlite.models import User
+from MyPractice.day6.controller.http.schemas.schemas import UserCreate
 
 class UserCRUD:
     def __init__(self, session: Session):

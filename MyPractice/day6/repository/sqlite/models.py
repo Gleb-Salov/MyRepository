@@ -1,8 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship, Mapped
-
-from database import Base
-
+from MyPractice.day6.service_layer.sqlalchemy.database import Base
 
 class User(Base):
     __tablename__ = "users"
