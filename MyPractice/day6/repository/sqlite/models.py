@@ -11,9 +11,6 @@ class User(Base):
 
     tasks = relationship("Task",back_populates="user", cascade="all, delete-orphan")
 
-    def __repr__(self):
-        return f"<User id={self.id} name={self.name!r} email={self.email!r}>"
-
 class Task(Base):
     __tablename__ = "tasks"
 
@@ -23,6 +20,3 @@ class Task(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
 
     user = relationship("User", back_populates="tasks")
-
-    def __repr__(self):
-        return f"<Task id={self.id} title={self.title!r} user_id={self.user_id}>"
