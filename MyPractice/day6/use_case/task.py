@@ -8,11 +8,11 @@ class TaskCRUD:
         self.session = session
 
     def create_task(self, task: TaskCreate, user_id: int):
-        self.session_task = Task(**task.dict(), user_id=user_id) 
-        self.session.add(self.session_task)  
+        session_task = Task(**task.dict(), user_id=user_id) 
+        self.session.add(session_task)  
         self.session.commit()  
-        self.session.refresh(self.session_task)  
-        return self.session_task 
+        self.session.refresh(session_task)  
+        return session_task 
 
     def get_task(self, task_id: int):
         return self.session.query(Task).filter(Task.id == task_id).first()
@@ -30,7 +30,7 @@ class TaskCRUD:
             return self.session_task
         return None
 
-    def delete_task(self, task_id: int):
+    def delete_task(self, task_id: int) -> None:
         self.session_task = self.session.query(Task).filter(Task.id == task_id).first() 
         if self.session_task:
             self.session.delete(self.session_task)

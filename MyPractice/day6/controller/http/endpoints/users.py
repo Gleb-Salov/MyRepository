@@ -9,7 +9,9 @@ from MyPractice.day6.controller.http.schemas.schemas import UserCreate, UserRead
 router = APIRouter()
 
 @router.post("/users/", response_model=UserRead)
-def create_user(user: UserCreate, user_crud: use_case.UserCRUD = Depends(get_user_crud)):
+def create_user(
+    user: UserCreate, user_crud: use_case.UserCRUD = Depends(get_user_crud),
+    ) -> UserRead:
     existing_user = user_crud.get_user_by_email(user.email)
     if existing_user:
         raise HTTPException(status_code=400, detail="Email already registered")
@@ -60,5 +62,12 @@ def get_task(task_id: int, task_crud: use_case.TaskCRUD = Depends(get_task_crud)
     return db_task
     
 @router.get("/users/{user_id}/tasks/", response_model=List[TaskRead])
-def get_task(user_id: int, skip: int = 0, limit: int = 100, task_crud: use_case.TaskCRUD = Depends(get_task_crud)):
+def get_user_tasks(user_id: int, skip: int = 0, limit: int = 100, task_crud: use_case.TaskCRUD = Depends(get_task_crud)):
     return task_crud.get_user_tasks(user_id, skip, limit)
+
+@router.delete("/tasks/{task_id}", status_code=204)
+def delete_task(task_id: int, task_crud: use_case.TaskCRUD = Depends(get_task_crud)):
+    db_task = task_crud.delete_task(task_id)
+    if db_task is None:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return None
